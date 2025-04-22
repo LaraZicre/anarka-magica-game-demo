@@ -10,9 +10,9 @@ export default class Preload extends Phaser.Scene {
     this.load.tilemapTiledJSON("lvl1", "assets/tilemaps/map1.json");
     this.load.image("tileset", "assets/images/Tileset.png");
 
-    this.load.spritesheet("player", "assets/images/sprite-anarka.png", {
-      frameWidth: 48, // Ajustá esto al tamaño real de cada frame
-      frameHeight: 64, // Ajustá esto también si hace falta
+    this.load.spritesheet("player", "assets/images/b.png", {
+      frameWidth: 96, // Ajustá esto al tamaño real de cada frame
+      frameHeight: 128, // Ajustá esto también si hace falta
     });
 
     this.load.spritesheet("enemy", "assets/images/sprite-enemigo1.png", {
@@ -52,6 +52,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   update() {
-    this.scene.start("Fight");
+    this.scene.start("Intro");
   }
 }

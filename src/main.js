@@ -1,6 +1,6 @@
 import Preload from "./scenes/Preload.js";
-//import Intro from "./scenes/Intro.js";
-import Fight from "./scenes/Fight.js";
+import Intro from "./scenes/Intro.js";
+//import Fight from "./scenes/Fight.js";
 
 const config = {
     type: Phaser.AUTO,
@@ -21,7 +21,7 @@ const config = {
         }
     },
 
-    scene: [Preload, Fight],
+    scene: [Preload, Intro],
 };
 
 const game = new Phaser.Game(config);
