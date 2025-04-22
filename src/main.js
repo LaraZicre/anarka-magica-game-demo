@@ -1,20 +1,26 @@
-import { Preload } from "./scenes/Preload.js";
-import { Game } from "./scenes/Game.js";
-
+import Preload from "./scenes/Preload.js";
+import Level1 from "./scenes/Level1.js";
 
 const config = {
     type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
+    width: 800,
+    height: 600,
     backgroundColor: "#000000",
-    resolution: 2, // Incrementa la resolución (2 = el doble, 3 = triple, etc.)
-    pixelArt: true, // Habilita el renderizado en modo pixel art
+    pixelArt: true,
     scale: {
-        mode: Phaser.Scale.FIT, // Ajusta el tamaño del juego manteniendo la proporción
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-    }, // Centra el juego en la ventana
+    },
 
-    scene: [Preload, Game,],
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: { y: 500 }, // Ajustá según lo que necesites
+            debug: false // Cambialo a true si querés ver las colisiones
+        }
+    },
+
+    scene: [Preload, Level1],
 };
 
 const game = new Phaser.Game(config);
