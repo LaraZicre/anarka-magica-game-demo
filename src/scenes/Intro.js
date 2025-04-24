@@ -55,10 +55,17 @@ export default class Intro extends Phaser.Scene {
     //dialogo
 
     this.dialogueLines = [
-      { speaker: "player", text: "¡Ey, vos! ¿Qué hacés acá?" },
-      { speaker: "enemy", text: "Podría preguntarte lo mismo..." },
-      { speaker: "player", text: "No pareces muy amistoso..." },
-      { speaker: "enemy", text: "Ni vos muy listo por venir hasta acá." }
+      { speaker: "player", text: "¡Che!" },
+      { speaker: "enemy", text: "¿Que querés?" },
+      { speaker: "player", text: "¿Vos sos el que no deja pasar a nadie?" },
+      { speaker: "enemy", text: "Yo me gané este lugar, si buscás una gaseosa acá en frente hay un kiosco" },
+      { speaker: "player", text: "Yo busco justicia, estas alejando a todos los clientes..." },  
+      { speaker: "enemy", text: "Con lo caras que estan las birras... Les estoy haciendo un favor" },  
+      { speaker: "player", text: "Voy a tener que sacarte de acá, por las buenas o por las malas" },
+      { speaker: "enemy", text: "Si querés que me vaya, primero vas a tener que ganarme en una competencia" },  
+      { speaker: "enemy", text: "Quien tome mas birras en menos tiempo gana... Obviamente voy a ganar yo" },  
+      { speaker: "enemy", text: "Los mozos TIEMBLAN cuando entro a un bar" },  
+      { speaker: "player", text: "Acepto el desafío" }
     ];
     this.dialogueIndex = 0;
     this.dialogueActive = false;
@@ -109,7 +116,7 @@ export default class Intro extends Phaser.Scene {
     if (this.dialogueIndex < this.dialogueLines.length) {
       const line = this.dialogueLines[this.dialogueIndex];
       this.dialogueText.setText(line.text);
-      this.dialogueSpeaker.setText(line.speaker === "player" ? "Tú:" : "???");
+      this.dialogueSpeaker.setText(line.speaker === "player" ? "Anarka" : "Señor Borracho ");
   
       this.dialogueIndex++;
     } else {

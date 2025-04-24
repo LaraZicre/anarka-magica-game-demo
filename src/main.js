@@ -1,4 +1,5 @@
 import Preload from "./scenes/Preload.js";
+import Menu from "./scenes/Menu.js";
 import Cinematic from "./scenes/Cinematic.js";
 import Intro from "./scenes/Intro.js";
 import Fight from "./scenes/Fight.js";
@@ -24,7 +25,7 @@ const config = {
         }
     },
 
-    scene: [Preload, Cinematic, Intro, Fight],
+    scene: [Preload, Menu, Cinematic, Intro, Fight],
 };
 
 const game = new Phaser.Game(config);

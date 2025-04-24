@@ -10,6 +10,7 @@ export default class Preload extends Phaser.Scene {
     this.load.tilemapTiledJSON("lvl1", "assets/tilemaps/map1.json");
     this.load.image("tileset", "assets/images/Tileset.png");
     this.load.image("parallax", "assets/images/lampara.png");
+    this.load.image("menubg", "assets/images/menu.png");
 
     this.load.spritesheet("player", "assets/images/b.png", {
       frameWidth: 96, // Ajustá esto al tamaño real de cada frame
@@ -62,6 +63,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   update() {
-    this.scene.start("Cinematic");
+    this.scene.start("Menu");
   }
 }
