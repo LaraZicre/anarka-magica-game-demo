@@ -29,9 +29,10 @@ export default class Intro extends Phaser.Scene {
     this.physics.add.collider(this.enemy, floorLayer); 
 
     this.enemyReacted = false;
+    this.dialogueCompleted = false; // Nueva bandera para controlar si el diálogo ya se completó
 
     this.physics.add.overlap(this.player, this.enemy, () => {
-      if (!this.dialogueActive) {
+      if (!this.dialogueActive && !this.dialogueCompleted) { // Verificar si el diálogo no se ha completado
         this.startDialogue();
     
         if (!this.enemyReacted) {
@@ -57,16 +58,21 @@ export default class Intro extends Phaser.Scene {
     this.dialogueIndex = 0;
     this.dialogueActive = false;
 
-    this.dialogueBox = this.add.rectangle(400, 500, 700, 80, 0x000000, 0.7);
-    this.dialogueText = this.add.text(130, 475, "", {
-      fontSize: "16px",
+    // Crear el cuadro de diálogo en el centro de la pantalla
+    this.dialogueBox = this.add.rectangle(400, 300, 700, 100, 0x000000, 0.7).setOrigin(0.5);
+    
+    // Ajustar el texto para que esté dentro del cuadro
+    this.dialogueText = this.add.text(400, 300, "", {
+      fontSize: "20px",
       fill: "#ffffff",
       wordWrap: { width: 600 }
-    });
-    this.dialogueSpeaker = this.add.text(60, 475, "", {
-      fontSize: "14px",
+    }).setOrigin(0.5);
+
+    // Posicionar el nombre del hablante justo encima del texto
+    this.dialogueSpeaker = this.add.text(400, 250, "", {
+      fontSize: "16px",
       fill: "#aaaaaa",
-    });
+    }).setOrigin(0.5);
 
     this.dialogueBox.setVisible(false);
     this.dialogueText.setVisible(false);
@@ -108,6 +114,7 @@ export default class Intro extends Phaser.Scene {
   
   endDialogue() {
     this.dialogueActive = false;
+    this.dialogueCompleted = true; // Marcar el diálogo como completado
   
     this.dialogueBox.setVisible(false);
     this.dialogueText.setVisible(false);
@@ -115,6 +122,12 @@ export default class Intro extends Phaser.Scene {
   
     this.player.body.enable = true;
     this.enemy.body.enable = true;
+
+    // Iniciar la transición a la escena de pelea
+    this.cameras.main.fadeOut(1000, 0, 0, 0);
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.scene.start('Fight');
+    });
   }
   
   

@@ -15,11 +15,17 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 128, // Ajustá esto también si hace falta
     });
 
-    this.load.spritesheet("enemy", "assets/images/sprite-enemigo1.png", {
-        frameWidth: 90,
-        frameHeight: 73,
+    this.load.spritesheet("enemy", "assets/images/sprite-enemigo1B.png", {
+        frameWidth: 192,
+        frameHeight: 160,
       });
 
+    this.load.image("pelea", "assets/images/borrador pelea1.png");
+    this.load.image("bg1", "assets/images/1.png");
+    this.load.image("bg2", "assets/images/2.png");
+    this.load.image("bg3", "assets/images/3.png");
+    this.load.image("bg4", "assets/images/4.png");
+    this.load.image("bg5", "assets/images/5.png");
   }
 
   create() {
@@ -44,7 +50,7 @@ export default class Preload extends Phaser.Scene {
 
     this.anims.create({
         key: "enemyReact",
-        frames: this.anims.generateFrameNumbers("enemy", { start: 0, end: 4 }), // Ajustá los frames a tu spritesheet
+        frames: this.anims.generateFrameNumbers("enemy", { start: 0, end: 1 }), // Ajustá los frames a tu spritesheet
         frameRate: 6,
         repeat: 0 // solo una vez
       });
@@ -52,6 +58,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   update() {
-    this.scene.start("Intro");
+    this.scene.start("Cinematic");
   }
 }
