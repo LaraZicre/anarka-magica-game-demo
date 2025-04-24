@@ -9,6 +9,7 @@ export default class Cinematic extends Phaser.Scene {
 
     create() {
         this.textIndex = 0;
+        this.canProgress = true; // Nueva bandera para controlar el progreso
 
         // Configuración del fondo negro
         this.add.rectangle(0, 0, 800, 600, 0x000000).setOrigin(0);
@@ -56,20 +57,54 @@ export default class Cinematic extends Phaser.Scene {
 
         this.timeBetweenLetters = 40;
         this.typing = false;
+        this.typeTextEvent = null;
 
         this.input.keyboard.on("keydown-SPACE", () => {
+            if (!this.canProgress) return; // Si no podemos progresar, ignorar la tecla
+
             if (this.typing) {
                 // Mostrar texto completo si aún está escribiendo
-                this.textObject.setText(this.fullText);
                 this.typing = false;
+                this.displayedText = this.fullText;
+                this.textObject.setText(this.fullText);
+                if (this.typeTextEvent) {
+                    this.typeTextEvent.remove(false);
+                }
             } else {
                 this.nextText();
             }
+
+            // Deshabilitar el progreso temporalmente
+            this.canProgress = false;
+            this.time.delayedCall(300, () => {
+                this.canProgress = true;
+            });
         });
 
         // Eliminamos el evento de click
         
         this.nextText();
+    }
+
+    typeText() {
+        let i = 0;
+        if (this.typeTextEvent) {
+            this.typeTextEvent.remove(false);
+        }
+        
+        this.typeTextEvent = this.time.addEvent({
+            delay: this.timeBetweenLetters,
+            repeat: this.fullText.length - 1,
+            callback: () => {
+                if (!this.typing) return; // Si ya no estamos escribiendo, no hacer nada
+                this.displayedText += this.fullText[i];
+                this.textObject.setText(this.displayedText);
+                i++;
+                if (i >= this.fullText.length) {
+                    this.typing = false;
+                }
+            }
+        });
     }
 
     nextText() {
@@ -98,27 +133,14 @@ export default class Cinematic extends Phaser.Scene {
             this.textIndex++;
             this.typeText();
         } else {
+            if (this.typeTextEvent) {
+                this.typeTextEvent.remove(false);
+            }
             // Fade out final antes de cambiar de escena
             this.cameras.main.fadeOut(1000);
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start("Intro");
             });
         }
-    }
-
-    typeText() {
-        let i = 0;
-        this.time.addEvent({
-            delay: this.timeBetweenLetters,
-            repeat: this.fullText.length - 1,
-            callback: () => {
-                this.displayedText += this.fullText[i];
-                this.textObject.setText(this.displayedText);
-                i++;
-                if (i >= this.fullText.length) {
-                    this.typing = false;
-                }
-            }
-        });
     }
 }

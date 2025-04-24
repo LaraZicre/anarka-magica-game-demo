@@ -6,6 +6,19 @@ export default class Fight extends Phaser.Scene {
     preload() {}
   
     create() {
+
+      this.add.image(400, 300, "fondopelea");
+
+      // Configurar el fondo con parallax
+      this.bg = this.add.tileSprite(0, 0, 800, 600, 'parallax');
+      this.bg.setOrigin(0, 0);
+      
+      // Variables para el efecto parallax
+      this.parallaxSpeed = 0.5;
+      this.parallaxDirection = 1;
+      this.parallaxTimer = 0;
+      this.parallaxInterval = 4000; // 4 segundos para cambiar de dirección
+
       this.add.image(400, 300, "pelea");
 
       this.availableKeys = ["LEFT", "RIGHT", "UP", "DOWN"];
@@ -165,6 +178,14 @@ export default class Fight extends Phaser.Scene {
 
     update(time, delta) {
       if (!this.battleStarted) return;
+
+      // Actualizar el efecto parallax
+      this.parallaxTimer += delta;
+      if (this.parallaxTimer >= this.parallaxInterval) {
+        this.parallaxDirection *= -1; // Cambiar dirección
+        this.parallaxTimer = 0;
+      }
+      this.bg.tilePositionX += this.parallaxSpeed * this.parallaxDirection;
 
       this.gameTimer += delta;
       const remainingTime = Math.max(0, Math.ceil((this.minGameTime - this.gameTimer) / 1000));

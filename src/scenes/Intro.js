@@ -6,10 +6,16 @@ export default class Intro extends Phaser.Scene {
   init() {}
 
   create() {
-    const map1 = this.make.tilemap({ key: "lvl1" });
-    const tileset = map1.addTilesetImage("tileset-anarka", "tileset");
 
+    const map1 = this.make.tilemap({ key: "lvl1" });
+    
+    // Cargar los tilesets - El primer parámetro debe coincidir con el nombre en el archivo Tiled
+    const tileset = map1.addTilesetImage("tileset-anarka", "tileset");
+    const parallaxTileset = map1.addTilesetImage("lampara", "parallax"); // Nombre exacto del tileset en el mapa
+
+    // Crear las capas en el orden correcto (el orden importa para la visualización)
     const backgroundLayer = map1.createLayer("background", tileset, 0, 0);
+    const lampLayer = map1.createLayer("lamps", parallaxTileset, 0, 0); // Ponemos la capa de lámparas primero
     const floorLayer = map1.createLayer("floor", tileset, 0, 0);
 
     const spawnPoint = map1.findObject(
@@ -21,7 +27,6 @@ export default class Intro extends Phaser.Scene {
     // Colisiones
     floorLayer.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.player, floorLayer);
-
 
     this.enemy = this.physics.add.sprite(600, 400, "enemy");
     this.enemy.body.immovable = true;

@@ -9,6 +9,7 @@ export default class Preload extends Phaser.Scene {
     //fondo y pj
     this.load.tilemapTiledJSON("lvl1", "assets/tilemaps/map1.json");
     this.load.image("tileset", "assets/images/Tileset.png");
+    this.load.image("parallax", "assets/images/lampara.png");
 
     this.load.spritesheet("player", "assets/images/b.png", {
       frameWidth: 96, // Ajustá esto al tamaño real de cada frame
@@ -21,6 +22,9 @@ export default class Preload extends Phaser.Scene {
       });
 
     this.load.image("pelea", "assets/images/borrador pelea1.png");
+    this.load.image("fondopelea", "assets/images/fondo1.png");
+
+
     this.load.image("bg1", "assets/images/1.png");
     this.load.image("bg2", "assets/images/2.png");
     this.load.image("bg3", "assets/images/3.png");
